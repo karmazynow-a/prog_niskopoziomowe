@@ -26,5 +26,5 @@ void add_operation_hook(){
     scanf("%lf", &a);
     scanf("%lf", &b);
 
-    printf ("= %.3lf", a-b);
+    printf ("= %.3lf", a+b);
 }

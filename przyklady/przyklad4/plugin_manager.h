@@ -4,28 +4,27 @@
 //menu hook
 typedef void (*PluginMenuHook)();
 
-//whole response hook
+//response operation hook
 typedef void (*PluginResponseHook)();
-
-typedef struct PluginManager_t PluginManager;
 
 //hooks of menu stored by linked list
 typedef struct PluginMenuHookList_t {
     PluginMenuHook hook;
-    struct PluginMenuHookList_t* next;
+    struct PluginMenuHookList_t * next;
 } PluginMenuHookList;
 
 //hooks of response stored by linked list
 typedef struct PluginResponseHookList_t {
     char plugin_trigger;
     PluginResponseHook hook;
-    struct PluginResponseHookList_t* next;
+    struct PluginResponseHookList_t * next;
 } PluginResponseHookList;
 
-struct PluginManager_t {
+//plugin manager with two lists of hooks
+typedef struct PluginManager_t {
     PluginMenuHookList * menu_hook_list;
     PluginResponseHookList * response_hook_list;
-};
+} PluginManager;
 
 //create new PluginManager
 PluginManager* pluginManager_new();

@@ -1,6 +1,8 @@
 #include "plugin_manager.h"
 #include <stdlib.h>
 
+#include <stdio.h>
+
 PluginManager * pluginManager_new() {
     PluginManager * new_manager = malloc( sizeof(PluginManager) );
     new_manager -> menu_hook_list = NULL;
@@ -38,7 +40,6 @@ void register_response_hook(PluginManager * manager, PluginResponseHook hook, ch
 
 void apply_menu_hooks(PluginManager * manager){
     PluginMenuHookList * tmp = manager->menu_hook_list;
-
     if (!tmp) return;
 
     while (tmp){
@@ -57,11 +58,11 @@ int apply_response_hooks(PluginManager * manager, char request){
             tmp->hook();
             break;
         }
+
         tmp = tmp->next;
     }
-
     //we went through list 'till the end
-    if(!tmp) return -1;
+    if (!tmp) return -1;
     //tmp is not null - we broke the loop
     else return 0;
 }

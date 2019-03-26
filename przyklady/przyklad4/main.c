@@ -12,9 +12,10 @@ int main(int argc, const char* argv[]) {
     void* pdstate = discover_plugins("plugins", manager);  
 
     //main app loop
+    start(manager);
     while (0==0){
-        print_menu(manager);
+        app(manager);
     }
-    
+
     return 0;
 }

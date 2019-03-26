@@ -9,7 +9,7 @@ CCOPT_EXE = $(CCFLAGS)
 CLIB_DIR = clib
 PLUGIN_DIR = plugins
 
-all: main $(PLUGIN_DIR)/add.so $(PLUGIN_DIR)/sub.so
+all: calculator $(PLUGIN_DIR)/add.so $(PLUGIN_DIR)/sub.so
 
 # The main program
 CALC_SRC = $(wildcard *.c)
@@ -19,7 +19,7 @@ CALC_H = $(wildcard *.h)
 	$(CC) -c $< $(CCOPT_EXE)
 
 # Link with --export-dynamic, so that public symbols will be exposed to DSOs.
-main: main.o calculator.o plugin_manager.o plugin_discovery.o
+calculator: main.o calculator.o plugin_manager.o plugin_discovery.o
 	$(CC) -o $@ $^ -ldl -Wl,--export-dynamic
 
 #
@@ -38,5 +38,5 @@ $(PLUGIN_DIR)/sub.so: $(PLUGIN_DIR)/sub.o
 	$(CC) -o $@ $^ -shared
 
 clean:
-	rm -rf core *.o *.a main plugins/*.o plugins/*.so 
+	rm -rf core *.o *.a calculator plugins/*.o plugins/*.so 
 

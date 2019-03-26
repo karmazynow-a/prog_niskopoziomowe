@@ -1,20 +1,47 @@
 //plugin manager interface
-
 #pragma once
 
-// Role hook. Will be called with: the role contents, DB and Post objects.
+//menu hook
 typedef void (*PluginMenuHook)();
+
+//whole response hook
+typedef void (*PluginResponseHook)();
 
 typedef struct PluginManager_t PluginManager;
 
-// Create a new plugin manager.
-PluginManager* PluginManager_new();
+//hooks of menu stored by linked list
+typedef struct PluginMenuHookList_t {
+    PluginMenuHook hook;
+    struct PluginMenuHookList_t* next;
+} PluginMenuHookList;
 
-// Free the memory of a plugin manager.
-void PluginManager_free(PluginManager * manager);
+//hooks of response stored by linked list
+typedef struct PluginResponseHookList_t {
+    char plugin_trigger;
+    PluginResponseHook hook;
+    struct PluginResponseHookList_t* next;
+} PluginResponseHookList;
+
+struct PluginManager_t {
+    PluginMenuHookList * menu_hook_list;
+    PluginResponseHookList * response_hook_list;
+};
+
+//create new PluginManager
+PluginManager* pluginManager_new();
+
+//destroy PluginManager
+void pluginManager_free(PluginManager * manager);
 
 //add new menu hook to the list
-void Register_menu_hook(PluginManager * manager, PluginMenuHook hook);
+void register_menu_hook(PluginManager * manager, PluginMenuHook hook);
 
 //apply menu list
-void Apply_menu_hooks(PluginManager* pm);
+void apply_menu_hooks(PluginManager* pm);
+
+//add new response hook to the list
+void register_response_hook(PluginManager * manager, PluginResponseHook hook, char trigger);
+
+//apply response list
+//if there's no suitable response returns -1
+int apply_response_hooks(PluginManager* pm, char request);

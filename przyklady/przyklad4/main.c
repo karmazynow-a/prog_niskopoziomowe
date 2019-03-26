@@ -8,11 +8,13 @@
 
 int main(int argc, const char* argv[]) {
     //init plugins
-    PluginManager * manager = PluginManager_new();
+    PluginManager * manager = pluginManager_new();
     void* pdstate = discover_plugins("plugins", manager);  
 
-    //while (0==0){
+    //main app loop
+    while (0==0){
         print_menu(manager);
-    //}
+    }
+    
     return 0;
 }

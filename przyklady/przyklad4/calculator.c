@@ -3,7 +3,7 @@
 #include "calculator.h"
 
 
-void print_menu( PluginManager * manager ){
+void print_menu(PluginManager * manager){
     printf("\n\n-------------------------------\n");
     printf("|                             |\n");
     printf("|           WELCOME           |\n");
@@ -12,19 +12,21 @@ void print_menu( PluginManager * manager ){
     printf("        Choose operation:\n");
     printf("> e - exit app\n");
 
-    Apply_menu_hooks(manager);
+    apply_menu_hooks(manager);
 
     char request = getchar();
-    handle_response(request);
+    handle_response(manager, request);
 }
 
 
-void handle_response(char request){
+void handle_response(PluginManager * manager, char request){
     if (request == 'e'){
         puts("Bye...");
         exit(-1);
     }
-    else {
+
+    int req = apply_response_hooks(manager, request);
+    if(req == -1){
         puts("Wrong request");
     }
 

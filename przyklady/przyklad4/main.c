@@ -32,10 +32,13 @@ int main(int argc, const char* argv[]) {
         //budujemy ścieżkę do pluginu ./folder/nazwa_pliku
         char * path = get_path(plugin_dir, file->d_name);
 
+        //otwieramy plugin
         handle = dlopen(path, RTLD_NOW);
 
+        //"wyłuskujemy" funkcję - znamy jej nazwę dzięki zaplanowanemu interfejsowi
         process = dlsym(handle, "process");
 
+        //wywołujemy funkcje
         process();
 
         dlclose(handle);

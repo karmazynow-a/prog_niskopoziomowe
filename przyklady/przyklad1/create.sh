@@ -7,7 +7,7 @@ cd lib
 gcc -c *.c
 
 #utowrzenie biblioteki za pomocą archivera
-ar rcs liblib.a plik1.o plik2.o
+ar rc liblib.a plik1.o plik2.o
 
 #folder główny
 cd ..

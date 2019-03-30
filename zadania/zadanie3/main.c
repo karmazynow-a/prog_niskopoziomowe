@@ -13,13 +13,14 @@
 int main(int argc, const char* argv[]) {
     //init plugins
     PluginManager * manager = pluginManager_new();
-    discover_plugins("plugins", manager);  
+    void * plugins = discover_plugins("plugins", manager);  
 
     //main app loop
     start(manager);
     while (0==0){
-        app(manager);
+        if( !app(manager) ) break;
     }
 
+    cleanup_plugins(plugins);
     return 0;
 }

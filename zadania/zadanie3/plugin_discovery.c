@@ -43,49 +43,56 @@ static char * get_plugin_name(char* filename) {
     return name;
 }
 
+static char * get_path(char * dirname, char * filename){
+    char * path = malloc (strlen(dirname) + strlen(filename) + 2);
+    strcpy(path, dirname);
+    strcat(path, "/");
+    strcat(path, filename);
+    strcat(path, "\0");
+    return path;
+}
+
 //try to load plugin
 static void * load_plugin(char * name, char * fullpath, PluginManager * manager) {
     //get the path to lib
     char * path = malloc (strlen(fullpath) + 3);
     //current directory prefix
-    path[0] = '.';
-    path[1] = '/'; 
+    strcpy(path, "./");
     strcat(path, fullpath); 
 
     //open plugin
-    void * lib_handle = dlopen(path, RTLD_NOW);
+    void * handle = dlopen(path, RTLD_NOW);
     free(path);
 
-    if (!lib_handle) {
+    if (!handle) {
         printf("Error loading DSO: %s\n", dlerror());
         return NULL;
     }
 
     //get the name of init function
     char * init_fun_name = malloc(strlen(name) + 6);
-    char tmp [5] = "init_";
-    strcpy(init_fun_name, tmp);
+    strcpy(init_fun_name, "init_");
     strcat(init_fun_name, name);
 
     //dlsym returns void * that we need to cast to function pointer
-    PluginInitFun init_fun = (PluginInitFun) (intptr_t) dlsym(lib_handle, init_fun_name);
+    PluginInitFun init_fun = (PluginInitFun) (intptr_t) dlsym(handle, init_fun_name);
     free(init_fun_name);
 
     if (!init_fun) {
         printf("Error loading init function: %s\n", dlerror());
-        dlclose(lib_handle);
+        dlclose(handle);
         return NULL;
     }
 
     int r = init_fun(manager);
     if (r < 0) {
         printf("Error: Plugin init function returned %d\n", r);
-        dlclose(lib_handle);
+        dlclose(handle);
         return NULL;
     }
 
     printf("Loaded plugin from: '%s'\n", fullpath);
-    return lib_handle;
+    return handle;
 }
 
 void * discover_plugins(char * dirname, PluginManager * manager){
@@ -103,13 +110,10 @@ void * discover_plugins(char * dirname, PluginManager * manager){
     struct dirent * d;
     while ((d = readdir(dir))) {
         char * name = get_plugin_name(d->d_name);
-
         if (!name) continue;
+
         //get the path to plugin
-        char * path = malloc (strlen(dirname) + strlen(d->d_name) + 2);
-        strcpy(path, dirname);
-        path[strlen(dirname)] = '/';
-        strncat(path, d->d_name, strlen(d->d_name));
+        char * path = get_path(dirname, d->d_name);
         
         //load plugin
         void * handle = load_plugin(name, path, manager);

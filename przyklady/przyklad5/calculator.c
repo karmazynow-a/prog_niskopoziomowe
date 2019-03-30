@@ -15,11 +15,12 @@ void start(PluginManager * manager){
     puts("Your request:");
 }
 
-void app(PluginManager * manager){
+int app(PluginManager * manager){
     char request = getchar();
     
     if(request != 10)
-        handle_response(manager, request);
+        return handle_response(manager, request);
+    return 1;
 }
 
 void print_menu(PluginManager * manager){
@@ -32,12 +33,13 @@ void print_menu(PluginManager * manager){
     printf("> e - exit app\n");
 }
 
-void handle_response(PluginManager * manager, char request){
+int handle_response(PluginManager * manager, char request){
     int req = apply_response_hooks(manager, request);
 
     if (request == 'e'){
         puts("Bye...");
-        exit(-1);
+        return 0;
+        //exit(-1);
     } 
     else if (request == 'm'){
         print_menu(manager);
@@ -49,4 +51,5 @@ void handle_response(PluginManager * manager, char request){
     puts("");
     puts("\n-------------------------------\n");
     puts("Your request:");
+    return 1;
 }

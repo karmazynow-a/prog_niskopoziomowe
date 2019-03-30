@@ -1,21 +1,47 @@
-//main rogramm for calculator app
-//with plugin system
-//inspired by https://eli.thegreenplace.net/2012/08/24/plugins-in-c
+/* Przykład demonstrujący prosty system pluginów
+*   Pluginy znajdują się w folderze "plugins"
+*   Interfejs składa się z funkcji void process()
+*/
 
-#include "calculator.h"
-#include "plugin_discovery.h"
-#include "plugin_manager.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <dlfcn.h>
+
+#include "get_plugins.h"
 
 int main(int argc, const char* argv[]) {
-    //init plugins
-    PluginManager * manager = pluginManager_new();
-    void* pdstate = discover_plugins("plugins", manager);  
+    //zmienna przechowująca otwarty plugin
+    void *handle;
+    //wskaźnik na funkcje z pluginów
+    typedef void (*process_plugin) ();
+    process_plugin process;
+    //nazwa folderu z pluginami
+    char * plugin_dir = "plugins";
 
-    //main app loop
-    start(manager);
-    while (0==0){
-        app(manager);
+    //folder z pluginami
+    DIR* dir = opendir(plugin_dir);
+    struct dirent * file;
+
+    while (file = readdir(dir)){
+        //sprawdzamy czy plik w folderze jest pluginem (biblioteką dynamiczną)
+        char * name = get_plugin_name (file->d_name);
+        if (!name) continue;
+
+        //budujemy ścieżkę do pluginu ./folder/nazwa_pliku
+        char * path = get_path(plugin_dir, file->d_name);
+
+        handle = dlopen(path, RTLD_NOW);
+
+        process = dlsym(handle, "process");
+
+        process();
+
+        dlclose(handle);
+        free(path);
     }
+
 
     return 0;
 }

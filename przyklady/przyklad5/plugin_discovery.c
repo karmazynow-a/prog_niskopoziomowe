@@ -22,9 +22,10 @@ typedef struct PluginDiscoveryState_t {
 typedef int (* PluginInitFun) (PluginManager * );
 
 static char * get_plugin_name(char* filename) {
-    //search for folenames not directories
+    //search for filenames (not directories)
     char* last_slash = strrchr(filename, '/');
-    //check where the name starts - from the last / or from beggining
+    //check where the name starts 
+    //- from the last slash (in case theres directory before name) or from beggining (no directory before name)
     char* name_start = last_slash ? last_slash + 1 : filename;
     //search for last dot - file extension
     char* last_dot = strrchr(filename, '.');
@@ -46,15 +47,16 @@ static char * get_plugin_name(char* filename) {
 static void * load_plugin(char * name, char * fullpath, PluginManager * manager) {
     //get the path to lib
     char * path = malloc (strlen(fullpath) + 3);
+    //current directory prefix
     path[0] = '.';
     path[1] = '/'; 
     strcat(path, fullpath); 
 
     //open plugin
-    void * libhandle = dlopen(path, RTLD_NOW);
+    void * lib_handle = dlopen(path, RTLD_NOW);
     free(path);
 
-    if (!libhandle) {
+    if (!lib_handle) {
         printf("Error loading DSO: %s\n", dlerror());
         return NULL;
     }
@@ -66,24 +68,24 @@ static void * load_plugin(char * name, char * fullpath, PluginManager * manager)
     strcat(init_fun_name, name);
 
     //dlsym returns void * that we need to cast to function pointer
-    PluginInitFun init_fun = (PluginInitFun) (intptr_t) dlsym(libhandle, init_fun_name);
+    PluginInitFun init_fun = (PluginInitFun) (intptr_t) dlsym(lib_handle, init_fun_name);
     free(init_fun_name);
 
     if (!init_fun) {
         printf("Error loading init function: %s\n", dlerror());
-        dlclose(libhandle);
+        dlclose(lib_handle);
         return NULL;
     }
 
     int r = init_fun(manager);
     if (r < 0) {
         printf("Error: Plugin init function returned %d\n", r);
-        dlclose(libhandle);
+        dlclose(lib_handle);
         return NULL;
     }
 
     printf("Loaded plugin from: '%s'\n", fullpath);
-    return libhandle;
+    return lib_handle;
 }
 
 void * discover_plugins(char * dirname, PluginManager * manager){

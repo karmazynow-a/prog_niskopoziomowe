@@ -23,7 +23,7 @@ void app(PluginManager * manager){
 }
 
 void print_menu(PluginManager * manager){
-    printf("     Available operation:\n");
+    printf(" Available operation:\n");
 
     //print menu options from loaded plugins
     apply_menu_hooks(manager);

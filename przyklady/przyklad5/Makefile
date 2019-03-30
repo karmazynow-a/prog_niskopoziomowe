@@ -8,7 +8,7 @@ CCOPT_EXE = $(CCFLAGS)
 
 PLUGIN_DIR = plugins
 
-all: main $(PLUGIN_DIR)/fun1.so
+all: calculator $(PLUGIN_DIR)/add.so $(PLUGIN_DIR)/sub.so
 
 # The main program
 CALC_SRC = $(wildcard *.c)
@@ -18,18 +18,24 @@ CALC_H = $(wildcard *.h)
 	$(CC) -c $< $(CCOPT_EXE)
 
 # Link with --export-dynamic, so that public symbols will be exposed to DSOs.
-main: main.o
+calculator: main.o calculator.o plugin_manager.o plugin_discovery.o
 	$(CC) -o $@ $^ -ldl -Wl,--export-dynamic
 
 #
 # Plugins
 #
-$(PLUGIN_DIR)/fun1.o: $(PLUGIN_DIR)/fun1.c $(HTMLIZE_H)
+$(PLUGIN_DIR)/add.o: $(PLUGIN_DIR)/add.c $(HTMLIZE_H)
 	$(CC) -c $< -o $@ $(CCOPT_SO) -I.
 
-$(PLUGIN_DIR)/fun1.so: $(PLUGIN_DIR)/fun1.o
+$(PLUGIN_DIR)/add.so: $(PLUGIN_DIR)/add.o
+	$(CC) -o $@ $^ -shared
+
+$(PLUGIN_DIR)/sub.o: $(PLUGIN_DIR)/sub.c $(HTMLIZE_H)
+	$(CC) -c $< -o $@ $(CCOPT_SO) -I.
+
+$(PLUGIN_DIR)/sub.so: $(PLUGIN_DIR)/sub.o
 	$(CC) -o $@ $^ -shared
 
 clean:
-	rm -rf core *.o *.a main plugins/*.o plugins/*.so 
+	rm -rf core *.o *.a calculator plugins/*.o plugins/*.so 
 

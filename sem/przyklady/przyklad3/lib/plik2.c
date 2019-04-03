@@ -13,3 +13,4 @@ void whisper_slowly (char * word){
     puts("");
     shout("sTaTYcZna");
 }
+

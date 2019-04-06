@@ -1,5 +1,5 @@
 CC = gcc
-CCFLAGS = -pedantic -g -Wall -std=c99
+CCFLAGS = -pedantic -g -gdwarf -Wall -std=c99
 LIB_DIR = lib
 
 all: $(LIB_DIR)/liblib.a main 

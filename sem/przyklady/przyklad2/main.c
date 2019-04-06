@@ -1,23 +1,25 @@
-//przykład demonstrujący niezależność utowrzonej biblioteki od plików obiektowych,
-//z których powstała, gdy zmienimy je, dopóki nie utowrzymy biblioteki na nowo
-//lub jej nie odświerzymy zmiany nie zostana wprowadzone
+//przykład demonstrujący użycie program dwarfdump do odczytania funkcji/symboli
+//zawartych w bibliotece
+//dostęp do nich uzyskuje się komendą dwarfdump:
+//DW_AT_name - nazwa
+//DW_TAG_formal_parameter - argumenty funkcji
+//DW_AT_type - typ zwracany
+//  typ zwracany przekierowuje nas do innego DIE
+//  w którym znajdziemy poszukiwany typ
 
-//przydatne komendy
-//https://linux.die.net/man/1/ar
-//ar r - dodanie pliku do archiwum
-//ar c - stworzenie archiwum
-//ar t - wylistowanie plików w archiwum
-//nm - wylistowanie ze zdefiniowanymi symbolami
-//ar x - wypakowanie plików
-//ar d - usunięcie modułu z archiwum
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "lib/plik1.h"
-#include "lib/plik2.h"
 
 int main(void){
-    whisper("bIBLioTeKa");
-    shout("StaTYcZnA");
+    int i = 8;
+    jestem_void(i);
+    jestem_int();
+    jestem_float(3.16);
+    char s = jestem_tablica (&i)
+    puts(s);
+    free(s);
     return 0;
 }

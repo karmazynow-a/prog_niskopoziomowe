@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Pobieranie kodu zrodlowego"
+git clone git://sourceware.org/git/valgrind.git
+
+echo "Kopiowanie plikow"
+yes | cp -irf ./src/* ./valgrind/
+
+cd valgrind
+./autogen.sh
+sudo ./configure --prefix=`pwd`/inst
+sudo make install
+cd ..
+
+echo "To run valgrind with the tool enter:"
+echo "./valgrind/inst/bin/valgrind --tool=wtyczka date"
+

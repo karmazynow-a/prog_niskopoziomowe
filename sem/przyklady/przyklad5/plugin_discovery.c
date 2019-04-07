@@ -7,20 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-//single plugin with it's discovery state
-typedef struct PluginHandleList_t {
-    void * handle;
-    struct PluginHandleList_t * next;
-} PluginHandleList;
-
-//handle list of plugins and their states
-typedef struct PluginDiscoveryState_t {
-    PluginHandleList * handle_list;
-} PluginDiscoveryState;
-
-//typedef for plugins init functions
-typedef int (* PluginInitFun) (PluginManager * );
-
 static char * get_plugin_name(char* filename) {
     //search for filenames (not directories)
     char* last_slash = strrchr(filename, '/');

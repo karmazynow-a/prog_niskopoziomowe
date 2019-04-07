@@ -7,6 +7,9 @@
 //  typ zwracany przekierowuje nas do innego DIE
 //  w którym znajdziemy poszukiwany typ
 
+//nazwy funkcji zdefiniowanych w tym pliku obiektowym otrzymamy przez komendę:
+//nm --defined-only ./lib/plik1.o
+
 
 #include <stdio.h>
 #include <stdlib.h>

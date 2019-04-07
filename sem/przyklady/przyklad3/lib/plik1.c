@@ -1,12 +1,27 @@
-#include <stdio.h>
+#include "plik1.h"
 
-void shout (char * word){
-    int i;
-    for (i=0; word[i] != '\0'; ++i){
-        if (word[i] > 96)
-            printf ("%c", word[i] - 32);
-        else 
-            printf ("%c", word[i]);
-    }
-    puts("");
+void jestem_void (int i){
+    printf("Mam integer: %d\n", i);
+}
+
+int jestem_int (void){
+    puts("Nie mam nic, więc zwracam zero");
+    return 0;
+}
+
+float jestem_float (float f, float e){
+    printf("Mam float: %f oraz %f i oddaje jedną!\n", f, e);
+    return f;
+}
+
+char * jestem_tablica (int * k){
+    printf("Mam wskaźnik: %ls, więc ci coś powiem\n", k);
+    char * slowo = malloc (6);
+    slowo = "Hejka";
+    return slowo;
+}
+
+int jestem_niewykorzystany (void){
+    puts("Nie mam nic i nikt mnie nie używa :(");
+    return 0;
 }

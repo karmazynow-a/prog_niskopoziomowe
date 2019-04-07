@@ -1,25 +1,11 @@
-//przykład demonstrujący użycie program dwarfdump do odczytania funkcji/symboli
-//zawartych w bibliotece
-//dostęp do nich uzyskuje się komendą dwarfdump:
-//DW_AT_name - nazwa
-//DW_TAG_formal_parameter - argumenty funkcji
-//DW_AT_type - typ zwracany
-//  typ zwracany przekierowuje nas do innego DIE
-//  w którym znajdziemy poszukiwany typ
-
+//przykład pokazujący, że kolejność dodawania bibliotek jest istotna,
+//jeśli są one zależne między sobą
 
 #include <stdio.h>
-#include <stdlib.h>
 
-#include "lib/plik1.h"
+//#include "lib/plik2.c"
 
 int main(void){
-    int i = 8;
-    jestem_void(i);
-    jestem_int();
-    jestem_float(3.16);
-    char s = jestem_tablica (&i)
-    puts(s);
-    free(s);
+    whisper_slowly("bIBLioTeKa");
     return 0;
 }

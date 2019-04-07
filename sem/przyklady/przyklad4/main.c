@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <dirent.h>
 #include <dlfcn.h>
 
@@ -34,9 +35,18 @@ int main(int argc, const char* argv[]) {
 
         //otwieramy plugin
         handle = dlopen(path, RTLD_NOW);
+        if (!handle) {
+            free(path);
+            continue;
+        }
 
         //"wyłuskujemy" funkcję - znamy jej nazwę dzięki zaplanowanemu interfejsowi
         process = dlsym(handle, "process");
+        if (!process){
+            dlclose(handle);
+            free(path);
+            continue;
+        }
 
         //wywołujemy funkcje
         process();

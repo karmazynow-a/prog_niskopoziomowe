@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#based on:
+#http://www.valgrind.org/docs/manual/writing-tools.html
+
 echo "Pobieranie kodu zrodlowego"
 git clone git://sourceware.org/git/valgrind.git
 

@@ -2,7 +2,7 @@
 # executable.
 #
 CC = gcc
-CCFLAGS = -pedantic -g -Wall -std=c99
+CCFLAGS = -g -Wall -std=c99
 CCOPT_SO = $(CCFLAGS) -fpic
 CCOPT_EXE = $(CCFLAGS)
 

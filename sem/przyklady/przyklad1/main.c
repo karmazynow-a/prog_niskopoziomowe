@@ -16,8 +16,14 @@
 
 #include <stdio.h>
 
+//gdy kompilujemy sam plik main - bez linkowania 
+//bez headerów kompilator nie zna funkcji whisper i shout - ostrzeżenie implicit declaration 
+//headery są przechowywane osobno od bibliotek 
 #include "lib/plik1.h"
 #include "lib/plik2.h"
+//równie dobrze możemy zrobić:
+//void whisper (char *);
+//void shout (char *);
 
 int main(void){
     whisper("bIBLioTeKa");

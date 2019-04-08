@@ -1,4 +1,5 @@
 #include "plik1.h"
+#include <string.h>
 
 void jestem_void (int i){
     printf("Mam integer: %d\n", i);
@@ -16,9 +17,7 @@ float jestem_float (float f, float e){
 
 char * jestem_tablica (int * k){
     printf("Mam wskaźnik: %ls, więc ci coś powiem\n", k);
-    char * slowo = malloc (6);
-    slowo = "Hejka";
-    return slowo;
+    return "Hejka";
 }
 
 int jestem_niewykorzystany (void){

@@ -24,7 +24,6 @@ int main(void){
 
     char * s = jestem_tablica (&i);
     puts(s);
-    free(s);
     
     return 0;
 }

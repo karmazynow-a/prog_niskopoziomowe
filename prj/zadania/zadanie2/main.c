@@ -14,6 +14,11 @@
 
 int main(int argc, const char* argv[]) {
 
+    //przygotuj ścieżki do wtyczek
+    //ustal jaką deklarację będą miały zaczepione funkcje
+    //w pętli otwórz połączenie i wywołaj zaczepione funkcje dla kolejnych wtyczek
+    //pamiętaj o zamknięciu połączenia 
+
     return 0;
 }
 

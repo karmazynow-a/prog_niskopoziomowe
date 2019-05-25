@@ -9,5 +9,5 @@ void whisper (char * word){
             printf ("%c", word[i] + 32);
     }
     puts("");
-    //puts("Zmiana");
+    puts("Zmiana");
 }

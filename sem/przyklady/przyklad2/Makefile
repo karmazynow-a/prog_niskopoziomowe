@@ -8,8 +8,8 @@ main.o: main.c
 	$(CC) -c $< -o $@ $(CCFLAGS) 
 
 main: main.o
-#	$(CC) -o $@ $^ -L./lib -llib2 -llib1 #ok
-	$(CC) -o $@ $^ -L./lib -llib1 -llib2  #not ok 
+	$(CC) -o $@ $^ -L./lib -llib2 -llib1 #ok
+#	$(CC) -o $@ $^ -L./lib -llib1 -llib2  #not ok 
 
 #linker wchodzi do lib1 i widzi definicję shout, ale nie jest ona na liście niezdefiniowanych symboli
 #wiec go nie potrzebuje i pomija, dopiero w pliku lib2 potrzebna jest definicja

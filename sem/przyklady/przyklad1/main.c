@@ -29,4 +29,3 @@ int main(void){
     whisper("bIBLioTeKa");
     shout("StaTYcZnA");
     return 0;
-}

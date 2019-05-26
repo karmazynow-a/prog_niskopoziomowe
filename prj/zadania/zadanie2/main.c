@@ -15,7 +15,11 @@
 int main(int argc, const char* argv[]) {
 
     //przygotuj ścieżki do wtyczek
+
     //ustal jaką deklarację będą miały zaczepione funkcje
+    //dla ułatwienia w późniejszym użyciu możesz użyć typedefa np:
+    //typedef char * (*process_plugin) (char *);
+
     //w pętli otwórz połączenie i wywołaj zaczepione funkcje dla kolejnych wtyczek
     //pamiętaj o zamknięciu połączenia 
 

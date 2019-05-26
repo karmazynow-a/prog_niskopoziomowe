@@ -15,6 +15,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*MIEJSCE NA DEKLARACJE*/
+
+/*KONIEC*/
+
 int main(void){
 
     fun1 ( /*UZUPEŁNIJ*/ );

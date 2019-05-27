@@ -1,5 +1,6 @@
 # Biblioteki statyczne i pluginy
-Data seminarium: 8.04.2019
+Data seminarium: 8 kwietnia 2019
+Data laboratorium: 27 maja 2019
 Autor: Aleksandra Poręba
 
 # Opis struktury katalogów

@@ -11,9 +11,9 @@ main: main.o
 	$(CC) -o $@ $^ -L./lib -llib2 -llib1 #ok
 #	$(CC) -o $@ $^ -L./lib -llib1 -llib2  #not ok 
 
-#linker wchodzi do lib1 i widzi definicję shout, ale nie jest ona na liście niezdefiniowanych symboli
-#wiec go nie potrzebuje i pomija, dopiero w pliku lib2 potrzebna jest definicja
-# i jest dodawany do listy ale juz jest za późno
+#linker wchodzi do lib1 i widzi definicję shout, ale nie jest ona na liście 
+# niezdefiniowanych symboli wiec go nie potrzebuje i pomija, dopiero w pliku 
+# lib2 potrzebna jest definicja i jest dodawany do listy ale juz jest za późno
 
 $(LIB_DIR)/plik1.o: $(LIB_DIR)/plik1.c
 	$(CC) -c $< -o $@ $(CCFLAGS) -I.

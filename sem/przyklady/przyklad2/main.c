@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //gdyby był include - plik2 ma w sobie definicje shout 
-//- więc kompilator niemiałby  problemu
+//- więc kompilator niemiałby problemu
 //#include "lib/plik2.c"
 void whisper_slowly(char *);
 
